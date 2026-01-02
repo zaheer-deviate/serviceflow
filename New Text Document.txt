@@ -77,68 +77,37 @@
         .tabs {
             display: flex;
             background: #f8f9fa;
-            padding: 20px 40px;
-            gap: 12px;
+            padding: 0 40px;
+            border-bottom: 2px solid #e9ecef;
             overflow-x: auto;
-            flex-wrap: wrap;
         }
 
         .tab {
-            padding: 12px 28px;
+            padding: 18px 28px;
             cursor: pointer;
-            border: 2px solid #e9ecef;
-            background: white;
+            border: none;
+            background: none;
             font-size: 15px;
             font-weight: 500;
             color: #6c757d;
             transition: all 0.3s ease;
-            border-radius: 50px;
+            border-bottom: 3px solid transparent;
             white-space: nowrap;
         }
 
         .tab:hover {
             color: #667eea;
-            border-color: #667eea;
             background: rgba(102, 126, 234, 0.05);
-            transform: translateY(-2px);
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
         }
 
         .tab.active {
-            color: white;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-color: transparent;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: white;
         }
 
         .content {
             padding: 30px 40px;
-        }
-
-        .service-description {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            border-left: 4px solid #667eea;
-            padding: 20px 40px;
-            margin: 0;
-            line-height: 1.6;
-            color: #495057;
-            font-size: 14px;
-        }
-
-        .service-description ul {
-            margin: 0;
-            padding-left: 20px;
-            list-style-type: disc;
-        }
-
-        .service-description li {
-            margin-bottom: 8px;
-            color: #495057;
-            font-size: 14px;
-        }
-
-        .service-description li:last-child {
-            margin-bottom: 0;
         }
 
         .filters-section {
@@ -223,8 +192,120 @@
             border-color: #667eea;
         }
 
-        .price-filter-group {
+        .price-filter-section {
             grid-column: 1 / -1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .price-filter-section label {
+            color: white !important;
+            font-size: 16px !important;
+            margin-bottom: 20px;
+            display: block;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .price-range-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .price-values {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .price-value {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 18px;
+            min-width: 120px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .slider-container {
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .slider-track {
+            position: relative;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .slider-range {
+            position: absolute;
+            height: 8px;
+            background: linear-gradient(90deg, #ffd700, #ffed4e);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 8px;
+            background: transparent;
+            position: absolute;
+            top: 10px;
+            pointer-events: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border: 4px solid #ffd700;
+            border-radius: 50%;
+            cursor: pointer;
+            pointer-events: auto;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.6);
+        }
+
+        input[type="range"]::-webkit-slider-thumb:active {
+            transform: scale(1.1);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: white;
+            border: 4px solid #ffd700;
+            border-radius: 50%;
+            cursor: pointer;
+            pointer-events: auto;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        input[type="range"]::-moz-range-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.6);
         }
 
         .price-range {
@@ -235,19 +316,12 @@
 
         .price-range input {
             flex: 1;
-            min-width: 0;
-        }
-
-        .price-range span {
-            color: #6c757d;
-            font-weight: 600;
         }
 
         .filter-actions {
             display: flex;
             gap: 10px;
             margin-top: 15px;
-            grid-column: 1 / -1;
         }
 
         .apply-filters,
@@ -310,94 +384,14 @@
             letter-spacing: 0.5px;
         }
 
-        th:first-child,
-        td:first-child {
-            min-width: 220px;
-        }
-
         td {
             padding: 16px;
             border-bottom: 1px solid #e9ecef;
             font-size: 14px;
-            cursor: help;
-            position: relative;
-        }
-
-        td:has(.publication-cell) {
-            cursor: default;
         }
 
         tr:hover {
             background: #f8f9fa;
-        }
-
-        td[title]:hover {
-            background: rgba(102, 126, 234, 0.05);
-        }
-
-        .genre-item {
-            padding: 2px 0;
-            line-height: 1.4;
-        }
-
-        .genre-item:not(:last-child) {
-            border-bottom: 1px dotted #e9ecef;
-        }
-
-        .publication-cell {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-        }
-
-        .publication-logo {
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
-            object-fit: contain;
-            background: #f8f9fa;
-            padding: 4px;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .publication-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            min-width: 0;
-        }
-
-        .publication-link {
-            text-decoration: none;
-            color: #495057;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            display: block;
-        }
-
-        .publication-link:hover {
-            color: #667eea;
-        }
-
-        .publication-link:hover ~ .publication-url,
-        .publication-info:hover .publication-logo {
-            transform: scale(1.05);
-        }
-
-        .publication-url {
-            font-size: 12px;
-            color: #667eea;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .publication-url:hover {
-            text-decoration: underline;
-            color: #5568d3;
         }
 
         .badge {
@@ -430,14 +424,10 @@
             border: none;
             padding: 8px 16px;
             border-radius: 6px;
-            cursor: pointer !important;
+            cursor: pointer;
             font-weight: 500;
             font-size: 13px;
             transition: all 0.3s ease;
-        }
-        
-        td:has(.add-to-cart-btn) {
-            cursor: default;
         }
 
         .add-to-cart-btn:hover {
@@ -590,25 +580,16 @@
             }
 
             .tabs {
-                padding: 15px 20px;
+                padding: 0 20px;
             }
 
             .tab {
-                padding: 10px 20px;
+                padding: 15px 20px;
                 font-size: 14px;
             }
 
             .content {
                 padding: 20px;
-            }
-
-            .service-description {
-                padding: 15px 20px;
-                font-size: 13px;
-            }
-
-            .service-description li {
-                font-size: 13px;
             }
 
             .filters-section {
@@ -623,23 +604,6 @@
                 padding: 12px 8px;
                 font-size: 12px;
             }
-
-            .publication-logo {
-                width: 24px;
-                height: 24px;
-            }
-
-            .publication-cell {
-                gap: 8px;
-            }
-
-            .publication-link {
-                font-size: 12px;
-            }
-
-            .publication-url {
-                font-size: 11px;
-            }
         }
     </style>
 </head>
@@ -651,13 +615,6 @@
                 🛒 Cart
                 <span class="cart-count" id="cartCount">0</span>
             </button>
-        </div>
-
-        <div class="service-description">
-            <ul style="margin: 0; padding-left: 20px;">
-                <li>After your article is published, any additional edits may be subject to an additional fee.</li>
-                <li>Unhyd Media will use commercially reasonable, good-faith efforts to keep the article publicly available on the applicable publication for at least 12 months.</li>
-            </ul>
         </div>
 
         <div class="tabs" id="tabsContainer"></div>
@@ -699,47 +656,47 @@
             'Publication': {
                 columns: ['Publication', 'Genres', 'DA', 'DR', 'TAT', 'Region', 'Sponsored', 'Indexed', 'Do follow', 'Image', 'Price'],
                 data: [
-                    {Publication: 'TechCrunch', URL: 'https://techcrunch.com', Logo: 'https://logo.clearbit.com/techcrunch.com', Genres: 'Technology, Media', DA: '94', DR: '91', TAT: '2-3 days', Region: 'USA', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 599},
-                    {Publication: 'Forbes', URL: 'https://forbes.com', Logo: 'https://logo.clearbit.com/forbes.com', Genres: 'Business, Finance', DA: '95', DR: '92', TAT: '3-5 days', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 899},
-                    {Publication: 'Huffington Post', URL: 'https://huffpost.com', Logo: 'https://logo.clearbit.com/huffpost.com', Genres: 'News', DA: '93', DR: '90', TAT: '1-2 days', Region: 'USA', Sponsored: 'No', Indexed: 'Yes', 'Do follow': 'No', Image: 'Yes', Price: 349},
-                    {Publication: 'Business Insider', URL: 'https://businessinsider.com', Logo: 'https://logo.clearbit.com/businessinsider.com', Genres: 'Business, Technology', DA: '92', DR: '89', TAT: '2-4 days', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 699},
-                    {Publication: 'The Guardian', URL: 'https://theguardian.com', Logo: 'https://logo.clearbit.com/theguardian.com', Genres: 'News, Politics', DA: '96', DR: '94', TAT: '4-6 days', Region: 'UK', Sponsored: 'No', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 799},
+                    {Publication: 'TechCrunch', Genres: 'Technology', DA: '94', DR: '91', TAT: '2-3 days', Region: 'USA', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 599},
+                    {Publication: 'Forbes', Genres: 'Business', DA: '95', DR: '92', TAT: '3-5 days', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 899},
+                    {Publication: 'Huffington Post', Genres: 'News', DA: '93', DR: '90', TAT: '1-2 days', Region: 'USA', Sponsored: 'No', Indexed: 'Yes', 'Do follow': 'No', Image: 'Yes', Price: 349},
+                    {Publication: 'Business Insider', Genres: 'Business', DA: '92', DR: '89', TAT: '2-4 days', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 699},
+                    {Publication: 'The Guardian', Genres: 'News', DA: '96', DR: '94', TAT: '4-6 days', Region: 'UK', Sponsored: 'No', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 799},
                 ]
             },
             'TV Station': {
                 columns: ['TV STATION', 'CALLS', 'STATE', 'MARKET', 'PROGRAM NAME', 'SEGMENT', 'LOCATION', 'TIME', 'Price'],
                 data: [
-                    {'TV STATION': 'NBC News', URL: 'https://nbcnews.com', Logo: 'https://logo.clearbit.com/nbcnews.com', CALLS: 'WNBC', STATE: 'NY', MARKET: 'New York', 'PROGRAM NAME': 'Today Show', SEGMENT: 'Business', LOCATION: 'Manhattan', TIME: 'Morning', Price: 1299},
-                    {'TV STATION': 'CNN', URL: 'https://cnn.com', Logo: 'https://logo.clearbit.com/cnn.com', CALLS: 'CNN', STATE: 'GA', MARKET: 'Atlanta', 'PROGRAM NAME': 'Anderson Cooper 360', SEGMENT: 'Tech', LOCATION: 'Atlanta', TIME: 'Prime Time', Price: 1599},
-                    {'TV STATION': 'Fox News', URL: 'https://foxnews.com', Logo: 'https://logo.clearbit.com/foxnews.com', CALLS: 'WNYW', STATE: 'NY', MARKET: 'New York', 'PROGRAM NAME': 'Fox & Friends', SEGMENT: 'Lifestyle', LOCATION: 'Manhattan', TIME: 'Morning', Price: 999},
-                    {'TV STATION': 'ABC', URL: 'https://abc.com', Logo: 'https://logo.clearbit.com/abc.com', CALLS: 'WABC', STATE: 'NY', MARKET: 'New York', 'PROGRAM NAME': 'Good Morning America', SEGMENT: 'Health', LOCATION: 'Manhattan', TIME: 'Morning', Price: 1399},
+                    {'TV STATION': 'NBC News', CALLS: 'WNBC', STATE: 'NY', MARKET: 'New York', 'PROGRAM NAME': 'Today Show', SEGMENT: 'Business', LOCATION: 'Manhattan', TIME: 'Morning', Price: 1299},
+                    {'TV STATION': 'CNN', CALLS: 'CNN', STATE: 'GA', MARKET: 'Atlanta', 'PROGRAM NAME': 'Anderson Cooper 360', SEGMENT: 'Tech', LOCATION: 'Atlanta', TIME: 'Prime Time', Price: 1599},
+                    {'TV STATION': 'Fox News', CALLS: 'WNYW', STATE: 'NY', MARKET: 'New York', 'PROGRAM NAME': 'Fox & Friends', SEGMENT: 'Lifestyle', LOCATION: 'Manhattan', TIME: 'Morning', Price: 999},
+                    {'TV STATION': 'ABC', CALLS: 'WABC', STATE: 'NY', MARKET: 'New York', 'PROGRAM NAME': 'Good Morning America', SEGMENT: 'Health', LOCATION: 'Manhattan', TIME: 'Morning', Price: 1399},
                 ]
             },
             'Best Sellers': {
                 columns: ['Publication', 'Genres', 'DA', 'DR', 'TAT', 'Region', 'Sponsored', 'Indexed', 'Do follow', 'Image', 'Price'],
                 data: [
-                    {Publication: 'Wall Street Journal', URL: 'https://wsj.com', Logo: 'https://logo.clearbit.com/wsj.com', Genres: 'Finance, Business', DA: '97', DR: '95', TAT: '5-7 days', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 1299},
-                    {Publication: 'New York Times', URL: 'https://nytimes.com', Logo: 'https://logo.clearbit.com/nytimes.com', Genres: 'News, Politics, Culture', DA: '96', DR: '94', TAT: '4-6 days', Region: 'USA', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 1199},
-                    {Publication: 'Bloomberg', URL: 'https://bloomberg.com', Logo: 'https://logo.clearbit.com/bloomberg.com', Genres: 'Business, Finance, Technology', DA: '94', DR: '92', TAT: '3-5 days', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 999},
+                    {Publication: 'Wall Street Journal', Genres: 'Finance', DA: '97', DR: '95', TAT: '5-7 days', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 1299},
+                    {Publication: 'New York Times', Genres: 'News', DA: '96', DR: '94', TAT: '4-6 days', Region: 'USA', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 1199},
+                    {Publication: 'Bloomberg', Genres: 'Business', DA: '94', DR: '92', TAT: '3-5 days', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 999},
                 ]
             },
             'Press Release': {
                 columns: ['Publication', 'Genres', 'DA', 'DR', 'TAT', 'Region', 'Sponsored', 'Indexed', 'Do follow', 'Image', 'Price'],
                 data: [
-                    {Publication: 'PR Newswire', URL: 'https://prnewswire.com', Logo: 'https://logo.clearbit.com/prnewswire.com', Genres: 'General, Business', DA: '88', DR: '86', TAT: '1 day', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 299},
-                    {Publication: 'Business Wire', URL: 'https://businesswire.com', Logo: 'https://logo.clearbit.com/businesswire.com', Genres: 'Business, Finance', DA: '89', DR: '87', TAT: '1 day', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 349},
-                    {Publication: 'GlobeNewswire', URL: 'https://globenewswire.com', Logo: 'https://logo.clearbit.com/globenewswire.com', Genres: 'General, Technology', DA: '85', DR: '83', TAT: '1 day', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 249},
-                    {Publication: 'PRWeb', URL: 'https://prweb.com', Logo: 'https://logo.clearbit.com/prweb.com', Genres: 'General, News', DA: '82', DR: '80', TAT: '1 day', Region: 'USA', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'No', Image: 'Yes', Price: 199},
+                    {Publication: 'PR Newswire', Genres: 'General', DA: '88', DR: '86', TAT: '1 day', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 299},
+                    {Publication: 'Business Wire', Genres: 'Business', DA: '89', DR: '87', TAT: '1 day', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 349},
+                    {Publication: 'GlobeNewswire', Genres: 'General', DA: '85', DR: '83', TAT: '1 day', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 249},
+                    {Publication: 'PRWeb', Genres: 'General', DA: '82', DR: '80', TAT: '1 day', Region: 'USA', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'No', Image: 'Yes', Price: 199},
                 ]
             },
             'Social Media': {
                 columns: ['Publication Name', 'Platform', 'TAT', 'Price'],
                 data: [
-                    {'Publication Name': 'TechInfluencer Pro', URL: 'https://twitter.com', Logo: 'https://logo.clearbit.com/twitter.com', Platform: 'Twitter', TAT: '1-2 days', Price: 199},
-                    {'Publication Name': 'Business Guru', URL: 'https://linkedin.com', Logo: 'https://logo.clearbit.com/linkedin.com', Platform: 'LinkedIn', TAT: '1 day', Price: 299},
-                    {'Publication Name': 'Viral News Hub', URL: 'https://facebook.com', Logo: 'https://logo.clearbit.com/facebook.com', Platform: 'Facebook', TAT: '1-2 days', Price: 149},
-                    {'Publication Name': 'InstaNews Daily', URL: 'https://instagram.com', Logo: 'https://logo.clearbit.com/instagram.com', Platform: 'Instagram', TAT: '1 day', Price: 249},
-                    {'Publication Name': 'YouTube Tech Review', URL: 'https://youtube.com', Logo: 'https://logo.clearbit.com/youtube.com', Platform: 'YouTube', TAT: '3-5 days', Price: 499},
+                    {'Publication Name': 'TechInfluencer Pro', Platform: 'Twitter', TAT: '1-2 days', Price: 199},
+                    {'Publication Name': 'Business Guru', Platform: 'LinkedIn', TAT: '1 day', Price: 299},
+                    {'Publication Name': 'Viral News Hub', Platform: 'Facebook', TAT: '1-2 days', Price: 149},
+                    {'Publication Name': 'InstaNews Daily', Platform: 'Instagram', TAT: '1 day', Price: 249},
+                    {'Publication Name': 'YouTube Tech Review', Platform: 'YouTube', TAT: '3-5 days', Price: 499},
                 ]
             }
         };
@@ -796,25 +753,37 @@
             const columns = dataCategories[category].columns;
             const data = dataCategories[category].data;
 
+            // Calculate price range for this category
+            const prices = data.map(item => item.Price || item.price);
+            const minPriceValue = Math.min(...prices);
+            const maxPriceValue = Math.max(...prices);
+
+            // Add price range filter first (to make it prominent)
+            const priceFilterSection = document.createElement('div');
+            priceFilterSection.className = 'price-filter-section';
+            priceFilterSection.innerHTML = `
+                <label>💰 Price Range Filter</label>
+                <div class="price-range-container">
+                    <div class="price-values">
+                        <div class="price-value" id="minPriceDisplay">$${minPriceValue}</div>
+                        <div class="price-value" id="maxPriceDisplay">$${maxPriceValue}</div>
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-track">
+                            <div class="slider-range" id="sliderRange"></div>
+                        </div>
+                        <input type="range" id="minPrice" min="${minPriceValue}" max="${maxPriceValue}" value="${minPriceValue}" step="1">
+                        <input type="range" id="maxPrice" min="${minPriceValue}" max="${maxPriceValue}" value="${maxPriceValue}" step="1">
+                    </div>
+                </div>
+            `;
+            filtersContainer.appendChild(priceFilterSection);
+
+            // Add other filters
             columns.forEach(column => {
                 if (column.toLowerCase() === 'price') return; // Skip price, handled separately
 
-                let uniqueValues;
-                
-                // Special handling for Genres - split comma-separated values
-                if (column.toLowerCase() === 'genres') {
-                    const allGenres = [];
-                    data.forEach(item => {
-                        if (item[column] && item[column].includes(',')) {
-                            item[column].split(',').forEach(genre => allGenres.push(genre.trim()));
-                        } else if (item[column]) {
-                            allGenres.push(item[column]);
-                        }
-                    });
-                    uniqueValues = [...new Set(allGenres)].sort();
-                } else {
-                    uniqueValues = [...new Set(data.map(item => item[column]))];
-                }
+                const uniqueValues = [...new Set(data.map(item => item[column]))];
                 
                 if (uniqueValues.length <= 10 && column.toLowerCase() !== 'publication' && column.toLowerCase() !== 'publication name' && column.toLowerCase() !== 'tv station') {
                     const filterGroup = document.createElement('div');
@@ -830,19 +799,6 @@
                 }
             });
 
-            // Add price range filter
-            const priceFilterGroup = document.createElement('div');
-            priceFilterGroup.className = 'filter-group price-filter-group';
-            priceFilterGroup.innerHTML = `
-                <label>Price Range</label>
-                <div class="price-range">
-                    <input type="number" id="minPrice" placeholder="Min" min="0">
-                    <span>-</span>
-                    <input type="number" id="maxPrice" placeholder="Max" min="0">
-                </div>
-            `;
-            filtersContainer.appendChild(priceFilterGroup);
-
             // Add filter actions
             const actionsDiv = document.createElement('div');
             actionsDiv.className = 'filter-actions';
@@ -851,6 +807,49 @@
                 <button class="reset-filters" onclick="resetFilters()">Reset</button>
             `;
             filtersContainer.appendChild(actionsDiv);
+
+            // Initialize price sliders
+            initializePriceSliders(minPriceValue, maxPriceValue);
+        }
+
+        // Initialize price sliders with event listeners
+        function initializePriceSliders(minVal, maxVal) {
+            const minSlider = document.getElementById('minPrice');
+            const maxSlider = document.getElementById('maxPrice');
+            const minDisplay = document.getElementById('minPriceDisplay');
+            const maxDisplay = document.getElementById('maxPriceDisplay');
+            const sliderRange = document.getElementById('sliderRange');
+
+            function updateSliderRange() {
+                const min = parseInt(minSlider.value);
+                const max = parseInt(maxSlider.value);
+                
+                // Prevent sliders from crossing
+                if (min > max - 10) {
+                    minSlider.value = max - 10;
+                }
+                if (max < min + 10) {
+                    maxSlider.value = min + 10;
+                }
+
+                const minPercent = ((minSlider.value - minVal) / (maxVal - minVal)) * 100;
+                const maxPercent = ((maxSlider.value - minVal) / (maxVal - minVal)) * 100;
+
+                sliderRange.style.left = minPercent + '%';
+                sliderRange.style.width = (maxPercent - minPercent) + '%';
+
+                minDisplay.textContent = '$' + minSlider.value;
+                maxDisplay.textContent = '$' + maxSlider.value;
+
+                // Auto-apply filters when slider changes
+                applyFilters();
+            }
+
+            minSlider.addEventListener('input', updateSliderRange);
+            maxSlider.addEventListener('input', updateSliderRange);
+
+            // Initial range display
+            updateSliderRange();
         }
 
         // Toggle filters
@@ -879,13 +878,6 @@
                 const matchesAdvanced = Array.from(document.querySelectorAll('#advancedFilters select')).every(select => {
                     if (!select.value) return true;
                     const column = select.id.replace('filter-', '');
-                    
-                    // Special handling for Genres - check if value contains the selected genre
-                    if (column.toLowerCase() === 'genres') {
-                        const itemGenres = item[column] ? item[column].split(',').map(g => g.trim()) : [];
-                        return itemGenres.includes(select.value);
-                    }
-                    
                     return item[column] === select.value;
                 });
 
@@ -899,8 +891,21 @@
         // Reset filters
         function resetFilters() {
             document.getElementById('searchInput').value = '';
-            document.getElementById('minPrice').value = '';
-            document.getElementById('maxPrice').value = '';
+            
+            const data = dataCategories[currentCategory].data;
+            const prices = data.map(item => item.Price || item.price);
+            const minPriceValue = Math.min(...prices);
+            const maxPriceValue = Math.max(...prices);
+            
+            document.getElementById('minPrice').value = minPriceValue;
+            document.getElementById('maxPrice').value = maxPriceValue;
+            document.getElementById('minPriceDisplay').textContent = '$' + minPriceValue;
+            document.getElementById('maxPriceDisplay').textContent = '$' + maxPriceValue;
+            
+            const sliderRange = document.getElementById('sliderRange');
+            sliderRange.style.left = '0%';
+            sliderRange.style.width = '100%';
+            
             document.querySelectorAll('#advancedFilters select').forEach(select => {
                 select.value = '';
             });
@@ -927,88 +932,22 @@
 
             data.forEach((item, index) => {
                 tableHTML += '<tr>';
-                columns.forEach((col, colIndex) => {
+                columns.forEach(col => {
                     let value = item[col];
-                    let tooltip = getTooltip(col, value, item);
-                    
-                    // First column - show logo, name, and URL
-                    if (colIndex === 0 && (col === 'Publication' || col === 'Publication Name' || col === 'TV STATION')) {
-                        const url = item.URL || '#';
-                        const logo = item.Logo || 'https://via.placeholder.com/32';
-                        const displayUrl = url.replace('https://', '').replace('http://', '').replace('www.', '');
-                        tableHTML += `<td title="${tooltip}">
-                            <div class="publication-cell">
-                                <img src="${logo}" alt="${value}" class="publication-logo" onerror="this.src='https://via.placeholder.com/32?text=${value.charAt(0)}'">
-                                <div class="publication-info">
-                                    <a href="${url}" target="_blank" class="publication-link">${value}</a>
-                                    <a href="${url}" target="_blank" class="publication-url">🔗 ${displayUrl}</a>
-                                </div>
-                            </div>
-                        </td>`;
-                    } else if (col.toLowerCase() === 'price') {
-                        tableHTML += `<td title="${tooltip}"><span class="price">$${value}</span></td>`;
+                    if (col.toLowerCase() === 'price') {
+                        tableHTML += `<td><span class="price">$${value}</span></td>`;
                     } else if (value === 'Yes' || value === 'No') {
-                        tableHTML += `<td title="${tooltip}"><span class="badge ${value.toLowerCase()}">${value}</span></td>`;
-                    } else if (col.toLowerCase() === 'genres' && value && value.includes(',')) {
-                        // Split comma-separated genres and display on separate lines
-                        const genres = value.split(',').map(g => g.trim());
-                        const genresHTML = genres.map(g => `<div class="genre-item">${g}</div>`).join('');
-                        tableHTML += `<td title="${tooltip}">${genresHTML}</td>`;
+                        tableHTML += `<td><span class="badge ${value.toLowerCase()}">${value}</span></td>`;
                     } else {
-                        tableHTML += `<td title="${tooltip}">${value}</td>`;
+                        tableHTML += `<td>${value}</td>`;
                     }
                 });
-                tableHTML += `<td><button class="add-to-cart-btn" onclick="addToCart(${index})" title="Add ${item.Publication || item['Publication Name'] || item['TV STATION'] || 'this item'} to cart">Add to Cart</button></td>`;
+                tableHTML += `<td><button class="add-to-cart-btn" onclick="addToCart(${index})">Add to Cart</button></td>`;
                 tableHTML += '</tr>';
             });
 
             tableHTML += '</tbody></table>';
             tableContainer.innerHTML = tableHTML;
-        }
-
-        // Generate tooltip text for table cells
-        function getTooltip(column, value, item) {
-            const col = column.toLowerCase();
-            
-            // Column-specific tooltips
-            if (col === 'price') {
-                return `Price: $${value} - Click "Add to Cart" to purchase`;
-            } else if (col === 'publication' || col === 'publication name' || col === 'tv station') {
-                const url = item.URL || '';
-                return url ? `${column}: ${value}\nWebsite: ${url}\nClick to visit website` : `${column}: ${value}`;
-            } else if (col === 'genres') {
-                return `Genre Category: ${value}`;
-            } else if (col === 'da') {
-                return `Domain Authority: ${value} - Higher is better for SEO`;
-            } else if (col === 'dr') {
-                return `Domain Rating: ${value} - Measures backlink strength`;
-            } else if (col === 'tat') {
-                return `Turn Around Time: ${value}`;
-            } else if (col === 'region') {
-                return `Geographic Region: ${value}`;
-            } else if (col === 'sponsored') {
-                return `Sponsored Content: ${value}`;
-            } else if (col === 'indexed') {
-                return `Search Engine Indexed: ${value}`;
-            } else if (col === 'do follow') {
-                return `DoFollow Link: ${value} - Passes SEO value`;
-            } else if (col === 'image') {
-                return `Image Allowed: ${value}`;
-            } else if (col === 'platform') {
-                return `Social Media Platform: ${value}`;
-            } else if (col === 'calls' || col === 'state' || col === 'market') {
-                return `${column}: ${value}`;
-            } else if (col === 'program name') {
-                return `TV Program: ${value}`;
-            } else if (col === 'segment') {
-                return `Program Segment: ${value}`;
-            } else if (col === 'location') {
-                return `Location: ${value}`;
-            } else if (col === 'time') {
-                return `Airtime: ${value}`;
-            } else {
-                return `${column}: ${value}`;
-            }
         }
 
         // Update results info
