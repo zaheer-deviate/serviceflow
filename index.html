@@ -311,7 +311,12 @@
             cursor: pointer;
             user-select: none;
             position: relative;
-            transition: all 0.3s ease;
+            background: inherit;
+        }
+
+        th:hover {
+            background: inherit;
+            color: white;
         }
 
         th.sortable::after {
@@ -443,14 +448,6 @@
             position: relative;
         }
 
-        .genres-hidden {
-            display: none;
-        }
-
-        .genres-container:hover .genres-hidden {
-            display: inline-block;
-        }
-
         .genres-more {
             display: inline-block;
             padding: 6px 14px;
@@ -464,10 +461,6 @@
             transition: all 0.3s ease;
             box-shadow: 0 1px 3px rgba(102, 126, 234, 0.3);
             cursor: help;
-        }
-
-        .genres-container:hover .genres-more {
-            display: none;
         }
 
         .genres-more:hover {
@@ -1102,18 +1095,18 @@
                             : [value];
                         
                         let genresHTML = '';
+                        let genreTooltip = `All Genres: ${genres.join(', ')}`;
+                        
                         if (genres.length > 2) {
                             // Show first 2 genres
                             genresHTML += genres.slice(0, 2).map(g => `<span class="genre-item">${g}</span>`).join('');
                             // Add "and X more" badge
                             genresHTML += `<span class="genres-more">and ${genres.length - 2} more</span>`;
-                            // Add hidden genres that show on hover
-                            genresHTML += genres.slice(2).map(g => `<span class="genre-item genres-hidden">${g}</span>`).join('');
                         } else {
                             genresHTML = genres.map(g => `<span class="genre-item">${g}</span>`).join('');
                         }
                         
-                        tableHTML += `<td title="${tooltip}"><div class="genres-container">${genresHTML}</div></td>`;
+                        tableHTML += `<td title="${genreTooltip}"><div class="genres-container">${genresHTML}</div></td>`;
                     } else {
                         tableHTML += `<td title="${tooltip}">${value}</td>`;
                     }
