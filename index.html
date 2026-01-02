@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PR Publications Marketplace</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .cart-button {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .cart-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .cart-count {
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            padding: 20px 40px;
+            gap: 12px;
+            overflow-x: auto;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 12px 28px;
+            cursor: pointer;
+            border: 2px solid #e9ecef;
+            background: white;
+            font-size: 15px;
+            font-weight: 500;
+            color: #6c757d;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+            white-space: nowrap;
+        }
+
+        .tab:hover {
+            color: #667eea;
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+        }
+
+        .tab.active {
+            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .content {
+            padding: 30px 40px;
+        }
+
+        .filters-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .filter-toggle {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .filter-toggle:hover {
+            background: #5568d3;
+        }
+
+        .advanced-filters {
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .advanced-filters.active {
+            display: grid;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .price-filter-group {
+            grid-column: 1 / -1;
+        }
+
+        .price-range {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price-range input {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .price-range span {
+            color: #6c757d;
+            font-weight: 600;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            grid-column: 1 / -1;
+        }
+
+        .apply-filters,
+        .reset-filters {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .apply-filters {
+            background: #28a745;
+            color: white;
+        }
+
+        .apply-filters:hover {
+            background: #218838;
+        }
+
+        .reset-filters {
+            background: #6c757d;
+            color: white;
+        }
+
+        .reset-filters:hover {
+            background: #5a6268;
+        }
+
+        .results-info {
+            margin-bottom: 15px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge.yes {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge.no {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .price {
+            color: #28a745;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .add-to-cart-btn:active {
+            transform: translateY(0);
+        }
+
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-modal.active {
+            display: flex;
+        }
+
+        .cart-content {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .cart-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .cart-header h2 {
+            font-size: 22px;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .cart-items {
+            padding: 25px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+            gap: 15px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-details {
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        .cart-item-price {
+            font-weight: 700;
+            color: #28a745;
+            white-space: nowrap;
+        }
+
+        .remove-item {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .remove-item:hover {
+            background: #c82333;
+        }
+
+        .cart-total {
+            padding: 20px 25px;
+            border-top: 2px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+            font-weight: 700;
+            background: #f8f9fa;
+        }
+
+        .checkout-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            width: calc(100% - 50px);
+            margin: 0 25px 25px;
+        }
+
+        .checkout-btn:hover {
+            background: #218838;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .tabs {
+                padding: 15px 20px;
+            }
+
+            .tab {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .filters-section {
+                padding: 20px;
+            }
+
+            .advanced-filters {
+                grid-template-columns: 1fr;
+            }
+
+            th, td {
+                padding: 12px 8px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📰 PR Publications Marketplace</h1>
+            <button class="cart-button" onclick="toggleCart()">
+                🛒 Cart
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+
+        <div class="tabs" id="tabsContainer"></div>
+
+        <div class="content">
+            <div class="filters-section">
+                <div class="search-bar">
+                    <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search...">
+                    <button class="filter-toggle" onclick="toggleFilters()">
+                        Advanced Filters
+                    </button>
+                </div>
+                <div class="advanced-filters" id="advancedFilters"></div>
+            </div>
+
+            <div class="results-info" id="resultsInfo"></div>
+            <div class="table-container" id="tableContainer"></div>
+        </div>
+    </div>
+
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>🛒 Shopping Cart</h2>
+                <button class="close-cart" onclick="toggleCart()">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        // Sample data structure - Replace with your actual data
+        const dataCategories = {
+            'Publication': {
+                columns: ['Publication', 'Genres', 'DA', 'DR', 'TAT', 'Region', 'Sponsored', 'Indexed', 'Do follow', 'Image', 'Price'],
+                data: [
+                    {Publication: 'TechCrunch', Genres: 'Technology', DA: '94', DR: '91', TAT: '2-3 days', Region: 'USA', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 599},
+                    {Publication: 'Forbes', Genres: 'Business', DA: '95', DR: '92', TAT: '3-5 days', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 899},
+                    {Publication: 'Huffington Post', Genres: 'News', DA: '93', DR: '90', TAT: '1-2 days', Region: 'USA', Sponsored: 'No', Indexed: 'Yes', 'Do follow': 'No', Image: 'Yes', Price: 349},
+                    {Publication: 'Business Insider', Genres: 'Business', DA: '92', DR: '89', TAT: '2-4 days', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 699},
+                    {Publication: 'The Guardian', Genres: 'News', DA: '96', DR: '94', TAT: '4-6 days', Region: 'UK', Sponsored: 'No', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 799},
+                ]
+            },
+            'TV Station': {
+                columns: ['TV STATION', 'CALLS', 'STATE', 'MARKET', 'PROGRAM NAME', 'SEGMENT', 'LOCATION', 'TIME', 'Price'],
+                data: [
+                    {'TV STATION': 'NBC News', CALLS: 'WNBC', STATE: 'NY', MARKET: 'New York', 'PROGRAM NAME': 'Today Show', SEGMENT: 'Business', LOCATION: 'Manhattan', TIME: 'Morning', Price: 1299},
+                    {'TV STATION': 'CNN', CALLS: 'CNN', STATE: 'GA', MARKET: 'Atlanta', 'PROGRAM NAME': 'Anderson Cooper 360', SEGMENT: 'Tech', LOCATION: 'Atlanta', TIME: 'Prime Time', Price: 1599},
+                    {'TV STATION': 'Fox News', CALLS: 'WNYW', STATE: 'NY', MARKET: 'New York', 'PROGRAM NAME': 'Fox & Friends', SEGMENT: 'Lifestyle', LOCATION: 'Manhattan', TIME: 'Morning', Price: 999},
+                    {'TV STATION': 'ABC', CALLS: 'WABC', STATE: 'NY', MARKET: 'New York', 'PROGRAM NAME': 'Good Morning America', SEGMENT: 'Health', LOCATION: 'Manhattan', TIME: 'Morning', Price: 1399},
+                ]
+            },
+            'Best Sellers': {
+                columns: ['Publication', 'Genres', 'DA', 'DR', 'TAT', 'Region', 'Sponsored', 'Indexed', 'Do follow', 'Image', 'Price'],
+                data: [
+                    {Publication: 'Wall Street Journal', Genres: 'Finance', DA: '97', DR: '95', TAT: '5-7 days', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 1299},
+                    {Publication: 'New York Times', Genres: 'News', DA: '96', DR: '94', TAT: '4-6 days', Region: 'USA', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 1199},
+                    {Publication: 'Bloomberg', Genres: 'Business', DA: '94', DR: '92', TAT: '3-5 days', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 999},
+                ]
+            },
+            'Press Release': {
+                columns: ['Publication', 'Genres', 'DA', 'DR', 'TAT', 'Region', 'Sponsored', 'Indexed', 'Do follow', 'Image', 'Price'],
+                data: [
+                    {Publication: 'PR Newswire', Genres: 'General', DA: '88', DR: '86', TAT: '1 day', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 299},
+                    {Publication: 'Business Wire', Genres: 'Business', DA: '89', DR: '87', TAT: '1 day', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 349},
+                    {Publication: 'GlobeNewswire', Genres: 'General', DA: '85', DR: '83', TAT: '1 day', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 249},
+                    {Publication: 'PRWeb', Genres: 'General', DA: '82', DR: '80', TAT: '1 day', Region: 'USA', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'No', Image: 'Yes', Price: 199},
+                ]
+            },
+            'Social Media': {
+                columns: ['Publication Name', 'Platform', 'TAT', 'Price'],
+                data: [
+                    {'Publication Name': 'TechInfluencer Pro', Platform: 'Twitter', TAT: '1-2 days', Price: 199},
+                    {'Publication Name': 'Business Guru', Platform: 'LinkedIn', TAT: '1 day', Price: 299},
+                    {'Publication Name': 'Viral News Hub', Platform: 'Facebook', TAT: '1-2 days', Price: 149},
+                    {'Publication Name': 'InstaNews Daily', Platform: 'Instagram', TAT: '1 day', Price: 249},
+                    {'Publication Name': 'YouTube Tech Review', Platform: 'YouTube', TAT: '3-5 days', Price: 499},
+                ]
+            }
+        };
+
+        let currentCategory = 'Publication';
+        let cart = [];
+        let filteredData = [];
+
+        // Initialize the page
+        function init() {
+            createTabs();
+            loadCategory(currentCategory);
+            updateCart();
+        }
+
+        // Create tabs
+        function createTabs() {
+            const tabsContainer = document.getElementById('tabsContainer');
+            Object.keys(dataCategories).forEach(category => {
+                const tab = document.createElement('button');
+                tab.className = 'tab';
+                tab.textContent = category;
+                tab.onclick = () => switchTab(category);
+                if (category === currentCategory) {
+                    tab.classList.add('active');
+                }
+                tabsContainer.appendChild(tab);
+            });
+        }
+
+        // Switch tab
+        function switchTab(category) {
+            currentCategory = category;
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.toggle('active', tab.textContent === category);
+            });
+            loadCategory(category);
+        }
+
+        // Load category data
+        function loadCategory(category) {
+            const data = dataCategories[category];
+            filteredData = [...data.data];
+            createAdvancedFilters(category);
+            renderTable(filteredData, data.columns);
+            updateResultsInfo();
+            document.getElementById('searchInput').value = '';
+        }
+
+        // Create advanced filters
+        function createAdvancedFilters(category) {
+            const filtersContainer = document.getElementById('advancedFilters');
+            filtersContainer.innerHTML = '';
+            const columns = dataCategories[category].columns;
+            const data = dataCategories[category].data;
+
+            columns.forEach(column => {
+                if (column.toLowerCase() === 'price') return; // Skip price, handled separately
+
+                const uniqueValues = [...new Set(data.map(item => item[column]))];
+                
+                if (uniqueValues.length <= 10 && column.toLowerCase() !== 'publication' && column.toLowerCase() !== 'publication name' && column.toLowerCase() !== 'tv station') {
+                    const filterGroup = document.createElement('div');
+                    filterGroup.className = 'filter-group';
+                    filterGroup.innerHTML = `
+                        <label>${column}</label>
+                        <select id="filter-${column}">
+                            <option value="">All</option>
+                            ${uniqueValues.map(val => `<option value="${val}">${val}</option>`).join('')}
+                        </select>
+                    `;
+                    filtersContainer.appendChild(filterGroup);
+                }
+            });
+
+            // Add price range filter
+            const priceFilterGroup = document.createElement('div');
+            priceFilterGroup.className = 'filter-group price-filter-group';
+            priceFilterGroup.innerHTML = `
+                <label>Price Range</label>
+                <div class="price-range">
+                    <input type="number" id="minPrice" placeholder="Min" min="0">
+                    <span>-</span>
+                    <input type="number" id="maxPrice" placeholder="Max" min="0">
+                </div>
+            `;
+            filtersContainer.appendChild(priceFilterGroup);
+
+            // Add filter actions
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'filter-actions';
+            actionsDiv.innerHTML = `
+                <button class="apply-filters" onclick="applyFilters()">Apply Filters</button>
+                <button class="reset-filters" onclick="resetFilters()">Reset</button>
+            `;
+            filtersContainer.appendChild(actionsDiv);
+        }
+
+        // Toggle filters
+        function toggleFilters() {
+            document.getElementById('advancedFilters').classList.toggle('active');
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const data = dataCategories[currentCategory].data;
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const minPrice = parseFloat(document.getElementById('minPrice').value) || 0;
+            const maxPrice = parseFloat(document.getElementById('maxPrice').value) || Infinity;
+
+            filteredData = data.filter(item => {
+                // Search filter
+                const matchesSearch = searchTerm === '' || Object.values(item).some(val => 
+                    String(val).toLowerCase().includes(searchTerm)
+                );
+
+                // Price filter
+                const price = parseFloat(item.Price || item.price);
+                const matchesPrice = price >= minPrice && price <= maxPrice;
+
+                // Advanced filters
+                const matchesAdvanced = Array.from(document.querySelectorAll('#advancedFilters select')).every(select => {
+                    if (!select.value) return true;
+                    const column = select.id.replace('filter-', '');
+                    return item[column] === select.value;
+                });
+
+                return matchesSearch && matchesPrice && matchesAdvanced;
+            });
+
+            renderTable(filteredData, dataCategories[currentCategory].columns);
+            updateResultsInfo();
+        }
+
+        // Reset filters
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('minPrice').value = '';
+            document.getElementById('maxPrice').value = '';
+            document.querySelectorAll('#advancedFilters select').forEach(select => {
+                select.value = '';
+            });
+            applyFilters();
+        }
+
+        // Search function
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+        // Render table
+        function renderTable(data, columns) {
+            const tableContainer = document.getElementById('tableContainer');
+            
+            if (data.length === 0) {
+                tableContainer.innerHTML = '<div class="empty-cart">No results found</div>';
+                return;
+            }
+
+            let tableHTML = '<table><thead><tr>';
+            columns.forEach(col => {
+                tableHTML += `<th>${col}</th>`;
+            });
+            tableHTML += '<th>Action</th></tr></thead><tbody>';
+
+            data.forEach((item, index) => {
+                tableHTML += '<tr>';
+                columns.forEach(col => {
+                    let value = item[col];
+                    if (col.toLowerCase() === 'price') {
+                        tableHTML += `<td><span class="price">$${value}</span></td>`;
+                    } else if (value === 'Yes' || value === 'No') {
+                        tableHTML += `<td><span class="badge ${value.toLowerCase()}">${value}</span></td>`;
+                    } else {
+                        tableHTML += `<td>${value}</td>`;
+                    }
+                });
+                tableHTML += `<td><button class="add-to-cart-btn" onclick="addToCart(${index})">Add to Cart</button></td>`;
+                tableHTML += '</tr>';
+            });
+
+            tableHTML += '</tbody></table>';
+            tableContainer.innerHTML = tableHTML;
+        }
+
+        // Update results info
+        function updateResultsInfo() {
+            const total = dataCategories[currentCategory].data.length;
+            const showing = filteredData.length;
+            document.getElementById('resultsInfo').textContent = `Showing ${showing} of ${total} results`;
+        }
+
+        // Add to cart
+        function addToCart(index) {
+            const item = filteredData[index];
+            const cartItem = {
+                category: currentCategory,
+                name: item.Publication || item['Publication Name'] || item['TV STATION'] || 'Item',
+                price: item.Price || item.price,
+                details: item
+            };
+            cart.push(cartItem);
+            updateCart();
+            
+            // Visual feedback
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Added!';
+            btn.style.background = '#28a745';
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '';
+            }, 1000);
+        }
+
+        // Update cart
+        function updateCart() {
+            document.getElementById('cartCount').textContent = cart.length;
+            
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartTotal = cart.reduce((sum, item) => sum + item.price, 0);
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
+            } else {
+                cartItemsContainer.innerHTML = cart.map((item, index) => `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <div class="cart-item-title">${item.name}</div>
+                            <div class="cart-item-details">${item.category}</div>
+                        </div>
+                        <div class="cart-item-price">$${item.price}</div>
+                        <button class="remove-item" onclick="removeFromCart(${index})">Remove</button>
+                    </div>
+                `).join('');
+            }
+            
+            document.getElementById('cartTotal').textContent = `$${cartTotal}`;
+        }
+
+        // Remove from cart
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        // Toggle cart modal
+        function toggleCart() {
+            document.getElementById('cartModal').classList.toggle('active');
+        }
+
+        // Checkout
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            alert(`Checkout - Total: $${total}\n\nItems:\n${cart.map(item => `- ${item.name}: $${item.price}`).join('\n')}\n\nThank you for your purchase!`);
+            cart = [];
+            updateCart();
+            toggleCart();
+        }
+
+        // Close cart when clicking outside
+        document.getElementById('cartModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                toggleCart();
+            }
+        });
+
+        // Initialize on page load
+        init();
+    </script>
+</body>
+</html>
