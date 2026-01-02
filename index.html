@@ -74,6 +74,32 @@
             font-weight: bold;
         }
 
+        .service-description {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-left: 4px solid #667eea;
+            padding: 20px 40px;
+            margin: 0;
+            line-height: 1.6;
+            color: #495057;
+            font-size: 14px;
+        }
+
+        .service-description ul {
+            margin: 0;
+            padding-left: 20px;
+            list-style-type: disc;
+        }
+
+        .service-description li {
+            margin-bottom: 8px;
+            color: #495057;
+            font-size: 14px;
+        }
+
+        .service-description li:last-child {
+            margin-bottom: 0;
+        }
+
         .tabs {
             display: flex;
             background: #f8f9fa;
@@ -113,32 +139,6 @@
 
         .content {
             padding: 30px 40px;
-        }
-
-        .service-description {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            border-left: 4px solid #667eea;
-            padding: 20px 40px;
-            margin: 0;
-            line-height: 1.6;
-            color: #495057;
-            font-size: 14px;
-        }
-
-        .service-description ul {
-            margin: 0;
-            padding-left: 20px;
-            list-style-type: disc;
-        }
-
-        .service-description li {
-            margin-bottom: 8px;
-            color: #495057;
-            font-size: 14px;
-        }
-
-        .service-description li:last-child {
-            margin-bottom: 0;
         }
 
         .filters-section {
@@ -308,6 +308,29 @@
             font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        th.sortable::after {
+            content: ' ⇅';
+            opacity: 0.3;
+            font-size: 14px;
+            margin-left: 6px;
+        }
+
+        th.sortable.sort-asc::after {
+            content: ' ▲';
+            opacity: 1;
+            color: #ffd700;
+        }
+
+        th.sortable.sort-desc::after {
+            content: ' ▼';
+            opacity: 1;
+            color: #ffd700;
         }
 
         th:first-child,
@@ -333,15 +356,6 @@
 
         td[title]:hover {
             background: rgba(102, 126, 234, 0.05);
-        }
-
-        .genre-item {
-            padding: 2px 0;
-            line-height: 1.4;
-        }
-
-        .genre-item:not(:last-child) {
-            border-bottom: 1px dotted #e9ecef;
         }
 
         .publication-cell {
@@ -398,6 +412,67 @@
         .publication-url:hover {
             text-decoration: underline;
             color: #5568d3;
+        }
+
+        .genre-item {
+            display: inline-block;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #495057;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .genre-item:hover {
+            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            border-color: #adb5bd;
+        }
+
+        .genres-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+            position: relative;
+        }
+
+        .genres-hidden {
+            display: none;
+        }
+
+        .genres-container:hover .genres-hidden {
+            display: inline-block;
+        }
+
+        .genres-more {
+            display: inline-block;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 1px solid #667eea;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            color: white;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(102, 126, 234, 0.3);
+            cursor: help;
+        }
+
+        .genres-container:hover .genres-more {
+            display: none;
+        }
+
+        .genres-more:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 6px rgba(102, 126, 234, 0.4);
         }
 
         .badge {
@@ -624,6 +699,11 @@
                 font-size: 12px;
             }
 
+            th.sortable::after {
+                font-size: 12px;
+                margin-left: 4px;
+            }
+
             .publication-logo {
                 width: 24px;
                 height: 24px;
@@ -638,6 +718,11 @@
             }
 
             .publication-url {
+                font-size: 11px;
+            }
+
+            .genre-item {
+                padding: 4px 10px;
                 font-size: 11px;
             }
         }
@@ -700,7 +785,7 @@
                 columns: ['Publication', 'Genres', 'DA', 'DR', 'TAT', 'Region', 'Sponsored', 'Indexed', 'Do follow', 'Image', 'Price'],
                 data: [
                     {Publication: 'TechCrunch', URL: 'https://techcrunch.com', Logo: 'https://logo.clearbit.com/techcrunch.com', Genres: 'Technology, Media', DA: '94', DR: '91', TAT: '2-3 days', Region: 'USA', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 599},
-                    {Publication: 'Forbes', URL: 'https://forbes.com', Logo: 'https://logo.clearbit.com/forbes.com', Genres: 'Business, Finance', DA: '95', DR: '92', TAT: '3-5 days', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 899},
+                    {Publication: 'Forbes', URL: 'https://forbes.com', Logo: 'https://logo.clearbit.com/forbes.com', Genres: 'Business, Finance, Leadership, Technology, Lifestyle', DA: '95', DR: '92', TAT: '3-5 days', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 899},
                     {Publication: 'Huffington Post', URL: 'https://huffpost.com', Logo: 'https://logo.clearbit.com/huffpost.com', Genres: 'News', DA: '93', DR: '90', TAT: '1-2 days', Region: 'USA', Sponsored: 'No', Indexed: 'Yes', 'Do follow': 'No', Image: 'Yes', Price: 349},
                     {Publication: 'Business Insider', URL: 'https://businessinsider.com', Logo: 'https://logo.clearbit.com/businessinsider.com', Genres: 'Business, Technology', DA: '92', DR: '89', TAT: '2-4 days', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 699},
                     {Publication: 'The Guardian', URL: 'https://theguardian.com', Logo: 'https://logo.clearbit.com/theguardian.com', Genres: 'News, Politics', DA: '96', DR: '94', TAT: '4-6 days', Region: 'UK', Sponsored: 'No', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 799},
@@ -720,7 +805,7 @@
                 data: [
                     {Publication: 'Wall Street Journal', URL: 'https://wsj.com', Logo: 'https://logo.clearbit.com/wsj.com', Genres: 'Finance, Business', DA: '97', DR: '95', TAT: '5-7 days', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 1299},
                     {Publication: 'New York Times', URL: 'https://nytimes.com', Logo: 'https://logo.clearbit.com/nytimes.com', Genres: 'News, Politics, Culture', DA: '96', DR: '94', TAT: '4-6 days', Region: 'USA', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 1199},
-                    {Publication: 'Bloomberg', URL: 'https://bloomberg.com', Logo: 'https://logo.clearbit.com/bloomberg.com', Genres: 'Business, Finance, Technology', DA: '94', DR: '92', TAT: '3-5 days', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 999},
+                    {Publication: 'Bloomberg', URL: 'https://bloomberg.com', Logo: 'https://logo.clearbit.com/bloomberg.com', Genres: 'Business, Finance, Technology, Markets', DA: '94', DR: '92', TAT: '3-5 days', Region: 'Global', Sponsored: 'Yes', Indexed: 'Yes', 'Do follow': 'Yes', Image: 'Yes', Price: 999},
                 ]
             },
             'Press Release': {
@@ -747,6 +832,8 @@
         let currentCategory = 'Publication';
         let cart = [];
         let filteredData = [];
+        let sortColumn = null;
+        let sortDirection = 'asc';
 
         // Initialize the page
         function init() {
@@ -783,10 +870,45 @@
         function loadCategory(category) {
             const data = dataCategories[category];
             filteredData = [...data.data];
+            sortColumn = null;
+            sortDirection = 'asc';
             createAdvancedFilters(category);
             renderTable(filteredData, data.columns);
             updateResultsInfo();
             document.getElementById('searchInput').value = '';
+        }
+
+        // Sort table by column
+        function sortTable(column) {
+            // Toggle direction if clicking same column, otherwise default to asc
+            if (sortColumn === column) {
+                sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortColumn = column;
+                sortDirection = 'asc';
+            }
+
+            // Sort the filtered data
+            filteredData.sort((a, b) => {
+                let aVal = a[column];
+                let bVal = b[column];
+
+                // Handle numeric columns (DA, DR, Price)
+                if (column === 'DA' || column === 'DR' || column === 'Price' || column === 'price') {
+                    aVal = parseFloat(aVal) || 0;
+                    bVal = parseFloat(bVal) || 0;
+                } else {
+                    // String comparison
+                    aVal = String(aVal).toLowerCase();
+                    bVal = String(bVal).toLowerCase();
+                }
+
+                if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1;
+                if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1;
+                return 0;
+            });
+
+            renderTable(filteredData, dataCategories[currentCategory].columns);
         }
 
         // Create advanced filters
@@ -892,6 +1014,27 @@
                 return matchesSearch && matchesPrice && matchesAdvanced;
             });
 
+            // Reapply sorting if active
+            if (sortColumn) {
+                filteredData.sort((a, b) => {
+                    let aVal = a[sortColumn];
+                    let bVal = b[sortColumn];
+
+                    // Handle numeric columns
+                    if (sortColumn === 'DA' || sortColumn === 'DR' || sortColumn === 'Price' || sortColumn === 'price') {
+                        aVal = parseFloat(aVal) || 0;
+                        bVal = parseFloat(bVal) || 0;
+                    } else {
+                        aVal = String(aVal).toLowerCase();
+                        bVal = String(bVal).toLowerCase();
+                    }
+
+                    if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1;
+                    if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1;
+                    return 0;
+                });
+            }
+
             renderTable(filteredData, dataCategories[currentCategory].columns);
             updateResultsInfo();
         }
@@ -904,6 +1047,8 @@
             document.querySelectorAll('#advancedFilters select').forEach(select => {
                 select.value = '';
             });
+            sortColumn = null;
+            sortDirection = 'asc';
             applyFilters();
         }
 
@@ -921,7 +1066,8 @@
 
             let tableHTML = '<table><thead><tr>';
             columns.forEach(col => {
-                tableHTML += `<th>${col}</th>`;
+                const sortClass = sortColumn === col ? `sortable sort-${sortDirection}` : 'sortable';
+                tableHTML += `<th class="${sortClass}" onclick="sortTable('${col}')">${col}</th>`;
             });
             tableHTML += '<th>Action</th></tr></thead><tbody>';
 
@@ -949,11 +1095,25 @@
                         tableHTML += `<td title="${tooltip}"><span class="price">$${value}</span></td>`;
                     } else if (value === 'Yes' || value === 'No') {
                         tableHTML += `<td title="${tooltip}"><span class="badge ${value.toLowerCase()}">${value}</span></td>`;
-                    } else if (col.toLowerCase() === 'genres' && value && value.includes(',')) {
-                        // Split comma-separated genres and display on separate lines
-                        const genres = value.split(',').map(g => g.trim());
-                        const genresHTML = genres.map(g => `<div class="genre-item">${g}</div>`).join('');
-                        tableHTML += `<td title="${tooltip}">${genresHTML}</td>`;
+                    } else if (col.toLowerCase() === 'genres' && value) {
+                        // Split comma-separated genres and display as badges
+                        const genres = value.includes(',') 
+                            ? value.split(',').map(g => g.trim()) 
+                            : [value];
+                        
+                        let genresHTML = '';
+                        if (genres.length > 2) {
+                            // Show first 2 genres
+                            genresHTML += genres.slice(0, 2).map(g => `<span class="genre-item">${g}</span>`).join('');
+                            // Add "and X more" badge
+                            genresHTML += `<span class="genres-more">and ${genres.length - 2} more</span>`;
+                            // Add hidden genres that show on hover
+                            genresHTML += genres.slice(2).map(g => `<span class="genre-item genres-hidden">${g}</span>`).join('');
+                        } else {
+                            genresHTML = genres.map(g => `<span class="genre-item">${g}</span>`).join('');
+                        }
+                        
+                        tableHTML += `<td title="${tooltip}"><div class="genres-container">${genresHTML}</div></td>`;
                     } else {
                         tableHTML += `<td title="${tooltip}">${value}</td>`;
                     }
